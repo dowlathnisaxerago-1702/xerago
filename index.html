@@ -7,8 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://assets.adobedtm.com/4fa03d1212c6/64139be1808a/launch-0fe98ca5cd24-development.min.js" async></script>
-  <style>
+<style>
   :root{
     --ink:#2B2013; --sub:#5C4B32; --paper:#FFFFFF; --beige:#FFF8EF; --beige-deep:#FFF8EF;
     --accent:#E4572E; --accent-dark:#C43D1B; --line: rgba(43,32,19,0.15);
@@ -825,7 +824,9 @@
 </footer>
 
 <script>
-  function go(page, anchor){
+  function showPage(page, anchor){
+    var targetPage = document.getElementById('page-'+page);
+    if(!targetPage) page = 'home';
     document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
     document.getElementById('page-'+page).classList.add('active');
     document.body.classList.toggle('quote-active', page === 'quote');
@@ -838,6 +839,16 @@
       window.scrollTo(0,0);
     }
   }
+  function go(page, anchor){
+    var nextUrl = '#' + page;
+    if(window.location.hash !== nextUrl) history.pushState(null, '', nextUrl);
+    showPage(page, anchor);
+  }
+  window.addEventListener('popstate', function(){
+    var page = window.location.hash.slice(1).split('/')[0] || 'home';
+    showPage(page);
+  });
+  showPage(window.location.hash.slice(1).split('/')[0] || 'home');
   document.getElementById('quote-form').addEventListener('submit', function(e){
     e.preventDefault();
     this.style.display='none';
