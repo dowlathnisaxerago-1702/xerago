@@ -829,6 +829,8 @@
   .then(response => response.json())
   .then(data => {
 
+    window.visitedBefore = data.visitedBefore;
+
     if (data.visitedBefore === true) {
       alert("Returning User");
     } else {
