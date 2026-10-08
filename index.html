@@ -825,15 +825,10 @@
 </footer>
 
 <script>
- console.log("Script Loaded");
-
-fetch('./userdata.json')
+ fetch('./userdata.json')
   .then(response => response.json())
   .then(data => {
-    console.log("JSON Data:", data);
-  })
-  .catch(error => {
-    console.error("Error:", error);
+    console.log(data);
   });
   function showPage(page, anchor){
     var targetPage = document.getElementById('page-'+page);
