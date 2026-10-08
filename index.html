@@ -828,8 +828,17 @@
  fetch('./userdata.json')
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+
+    if (data.visitedBefore === true) {
+      alert("Returning User");
+    } else {
+      alert("New User");
+    }
+
   });
+
+
+  
   function showPage(page, anchor){
     var targetPage = document.getElementById('page-'+page);
     if(!targetPage) page = 'home';
