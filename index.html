@@ -8,10 +8,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://assets.adobedtm.com/4fa03d1212c6/64139be1808a/launch-0fe98ca5cd24-development.min.js" async>
- fetch('./userdata.json')
+ console.log("Script Loaded");
+
+fetch('./userdata.json')
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    console.log("JSON Data:", data);
+  })
+  .catch(error => {
+    console.error("Error:", error);
   });
 </script>
   <style>
