@@ -825,21 +825,23 @@
 </footer>
 
 <script>
- fetch('./userdata.json')
-  .then(response => response.json())
-  .then(data => {
+ 
+const hasVisitedBefore = localStorage.getItem("visitedBefore");
 
-    window.visitedBefore = data.visitedBefore;
+const visitorData = {
+  visitedBefore: hasVisitedBefore !== null
+};
 
-    console.log("visitedBefore value:", window.visitedBefore);
+window.visitedBefore = visitorData.visitedBefore;
 
-    if (data.visitedBefore === true) {
-     // alert("Returning User");
-    } else {
-    //  alert("New User");
-    }
+console.log("JSON visitor data:", JSON.stringify(visitorData));
 
-  });
+if (visitorData.visitedBefore === false) {
+  console.log("New User - Show Original Banner");
+  localStorage.setItem("visitedBefore", "true");
+} else {
+  console.log("Returning User - Show Changed Banner");
+}
 
 
   
