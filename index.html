@@ -827,7 +827,14 @@
 <script>
  
 
-const hasVisitedBefore = localStorage.getItem("visitedBefore");
+
+let hasVisitedBefore = localStorage.getItem("visitedBefore");
+
+if (hasVisitedBefore === null) {
+  // First visit: save false
+  localStorage.setItem("visitedBefore", "false");
+  hasVisitedBefore = "false";
+}
 
 const visitorData = {
   visitedBefore: hasVisitedBefore === "true"
@@ -840,7 +847,7 @@ console.log("JSON visitor data:", JSON.stringify(visitorData));
 if (visitorData.visitedBefore === false) {
   console.log("New User - Show Original Banner");
 
-  // Save the visit for the next page load
+  // Mark the visit for the next page load
   localStorage.setItem("visitedBefore", "true");
 } else {
   console.log("Returning User - Show Changed Banner");
