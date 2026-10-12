@@ -826,15 +826,21 @@
 
 <script>
  
-fetch('./userdata.json')
-  .then(response => response.json())
+window.customerDataReady = fetch('./userdata.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to load userdata.json');
+    }
+    return response.json();
+  })
   .then(data => {
     window.customerType = data.customerType;
-
     console.log("Customer Type:", window.customerType);
+    return data;
   })
   .catch(error => {
     console.error("Error fetching customer data:", error);
+    throw error;
   });
   
   function showPage(page, anchor){
