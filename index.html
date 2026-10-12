@@ -829,38 +829,38 @@
 
 
 
-const VISIT_KEY = "visitedBefore";
-const SESSION_KEY = "visitedBeforeSession";
+// const VISIT_KEY = "visitedBefore";
+// const SESSION_KEY = "visitedBeforeSession";
 
-// Read the saved value: 0 = new, 1 = returning
-let visitedBefore = localStorage.getItem(VISIT_KEY);
+// // Read the saved value: 0 = new, 1 = returning
+// let visitedBefore = localStorage.getItem(VISIT_KEY);
 
-if (visitedBefore === null) {
-  visitedBefore = "0";
-  localStorage.setItem(VISIT_KEY, "0");
-}
+// if (visitedBefore === null) {
+//   visitedBefore = "0";
+//   localStorage.setItem(VISIT_KEY, "0");
+// }
 
-// Keep the current visitor value available to Adobe Launch
-window.visitedBefore = Number(visitedBefore);
+// // Keep the current visitor value available to Adobe Launch
+// window.visitedBefore = Number(visitedBefore);
 
-console.log("Visitor JSON data:", JSON.stringify({
-  visitedBefore: window.visitedBefore
-}));
+// console.log("Visitor JSON data:", JSON.stringify({
+//   visitedBefore: window.visitedBefore
+// }));
 
-if (window.visitedBefore === 0) {
-  console.log("New User - Show Original Banner");
-} else {
-  console.log("Returning User - Show Changed Banner");
-}
+// if (window.visitedBefore === 0) {
+//   console.log("New User - Show Original Banner");
+// } else {
+//   console.log("Returning User - Show Changed Banner");
+// }
 
-// Record the first session; refreshes won't increase the value.
-if (sessionStorage.getItem(SESSION_KEY) === null) {
-  sessionStorage.setItem(SESSION_KEY, "true");
+// // Record the first session; refreshes won't increase the value.
+// if (sessionStorage.getItem(SESSION_KEY) === null) {
+//   sessionStorage.setItem(SESSION_KEY, "true");
 
-  if (window.visitedBefore === 0) {
-    localStorage.setItem(VISIT_KEY, "1");
-  }
-}
+//   if (window.visitedBefore === 0) {
+//     localStorage.setItem(VISIT_KEY, "1");
+//   }
+// }
   
   function showPage(page, anchor){
     var targetPage = document.getElementById('page-'+page);
