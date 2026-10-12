@@ -835,9 +835,12 @@ window.customerDataReady = fetch('./userdata.json')
   })
   .then(data => {
     window.customerType = data.customerType;
+
+    window.dispatchEvent(new Event("customerDataReady"));
+
     console.log("Customer Type:", window.customerType);
     return data;
-  })
+})
   .catch(error => {
     console.error("Error fetching customer data:", error);
     throw error;
