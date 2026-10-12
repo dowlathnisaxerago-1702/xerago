@@ -828,31 +828,39 @@
  
 
 
-let hasVisitedBefore = localStorage.getItem("visitedBefore");
 
-if (hasVisitedBefore === null) {
-  // First visit: save false
-  localStorage.setItem("visitedBefore", "false");
-  hasVisitedBefore = "false";
+const VISIT_KEY = "visitedBefore";
+const SESSION_KEY = "visitedBeforeSession";
+
+// Read the saved value: 0 = new, 1 = returning
+let visitedBefore = localStorage.getItem(VISIT_KEY);
+
+if (visitedBefore === null) {
+  visitedBefore = "0";
+  localStorage.setItem(VISIT_KEY, "0");
 }
 
-const visitorData = {
-  visitedBefore: hasVisitedBefore === "true"
-};
+// Keep the current visitor value available to Adobe Launch
+window.visitedBefore = Number(visitedBefore);
 
-window.visitedBefore = visitorData.visitedBefore;
+console.log("Visitor JSON data:", JSON.stringify({
+  visitedBefore: window.visitedBefore
+}));
 
-console.log("JSON visitor data:", JSON.stringify(visitorData));
-
-if (visitorData.visitedBefore === false) {
+if (window.visitedBefore === 0) {
   console.log("New User - Show Original Banner");
-
-  // Mark the visit for the next page load
-  localStorage.setItem("visitedBefore", "true");
 } else {
   console.log("Returning User - Show Changed Banner");
 }
 
+// Record the first session; refreshes won't increase the value.
+if (sessionStorage.getItem(SESSION_KEY) === null) {
+  sessionStorage.setItem(SESSION_KEY, "true");
+
+  if (window.visitedBefore === 0) {
+    localStorage.setItem(VISIT_KEY, "1");
+  }
+}
   
   function showPage(page, anchor){
     var targetPage = document.getElementById('page-'+page);
